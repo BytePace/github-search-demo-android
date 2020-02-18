@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">github_info_loader</string>
+    <string name="url">URL</string>
+    <string name="repository_name">Repository name</string>
+    <string name="enter_gh_key_words">Enter gh key words</string>
+    <string name="username">username:</string>
+    <string name="last_commit">last_commit:</string>
+
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="10"
+        android:background="@color/dark_blue"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/inputKeyWords"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="@string/enter_gh_key_words"
+            android:inputType="textPersonName" />
+
+    </RelativeLayout>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_column="0"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/repository_name" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_column="1"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="@string/url" />
+
+    </TableRow>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:scrollbars = "vertical"
+        android:id="@+id/info_recycler_view"/>
+
+</LinearLayout>
