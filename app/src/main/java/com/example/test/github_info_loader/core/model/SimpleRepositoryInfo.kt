@@ -8,6 +8,8 @@ data class SimpleRepositoryInfo(
     @SerializedName("url")
     val repositoryURL: String,
     @SerializedName("owner")
-    val repositoryOwner: RepositoryOwner
+    val repositoryOwner: RepositoryOwner,
+    @SerializedName("pushed_at")
+    val date: String
 ) {
 }

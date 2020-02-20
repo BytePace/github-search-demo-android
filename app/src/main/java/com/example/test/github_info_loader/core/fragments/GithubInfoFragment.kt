@@ -1,50 +1,63 @@
 package com.example.test.github_info_loader.core.fragments
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.example.test.github_info_loader.R
-import com.example.test.github_info_loader.core.instance.RouterRootApplication
+import com.example.test.github_info_loader.core.RootApplication
 import com.example.test.github_info_loader.core.model.SimpleRepositoryInfo
-import com.example.test.github_info_loader.core.view.DetailedInformationView
+import com.example.test.github_info_loader.core.presenters.ToGeneralFragmentPresenter
+import com.example.test.github_info_loader.core.view.ToGeneralFragmentView
 import kotlinx.android.synthetic.main.detailed_info.*
-import moxy.MvpAppCompatActivity
 import moxy.MvpAppCompatFragment
+import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
-import ru.terrakok.cicerone.Navigator
-import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import javax.inject.Inject
 
+class GithubInfoFragment(private val data: SimpleRepositoryInfo) :
+    MvpAppCompatFragment(R.layout.detailed_info),
+    ToGeneralFragmentView {
 
-class GithubInfoFragment(private val data: SimpleRepositoryInfo) : MvpAppCompatFragment(R.layout.detailed_info) {
+    @Inject
+    @InjectPresenter
+    lateinit var toGeneralFragmentPresenter: ToGeneralFragmentPresenter
+
     private lateinit var backButton: Button
     private lateinit var userName: TextView
     private lateinit var repositoryName: TextView
     private lateinit var lastCommit: TextView
-    private lateinit var navigator: Navigator
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        navigator = SupportAppNavigator(this.activity!!, -1)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initFields()
+        initButton()
+        initDataFields(data)
+    }
+
+    private fun initFields() {
         backButton = button
         userName = userNameId
         repositoryName = repositoryNameId
         lastCommit = lastCommitId
-        backButton.setOnClickListener {
-            RouterRootApplication.instance?.getRouter()?.exit()
-        }
+    }
+
+    private fun initDataFields(data: SimpleRepositoryInfo) {
         userName.text = data.repositoryOwner.userName
         repositoryName.text = data.repositoryName
-        lastCommit.text = "kekv"
+        lastCommit.text = data.date
+    }
+
+    private fun initButton() {
+        backButton.setOnClickListener {
+            toGeneralFragmentPresenter.toGeneralFragment()
+        }
+    }
+
+    @ProvidePresenter
+    fun provideToGeneralFragmentPresenter(): ToGeneralFragmentPresenter {
+        val toGeneralFragmentPresenter = ToGeneralFragmentPresenter()
+        RootApplication.appComponent.inject(toGeneralFragmentPresenter)
+        return toGeneralFragmentPresenter
     }
 }

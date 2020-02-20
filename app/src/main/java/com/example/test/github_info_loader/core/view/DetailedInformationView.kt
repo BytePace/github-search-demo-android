@@ -6,5 +6,5 @@ import moxy.viewstate.strategy.alias.AddToEnd
 
 interface DetailedInformationView : MvpView {
     @AddToEnd
-    open fun toDetailInfo(smp: SimpleRepositoryInfo)
+    fun toDetailInfo(smp: SimpleRepositoryInfo)
 }

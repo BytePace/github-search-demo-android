@@ -10,7 +10,7 @@ import com.example.test.github_info_loader.core.model.SimpleRepositoryInfo
 import kotlinx.android.synthetic.main.repository_info.view.*
 
 class InfoRecyclerViewAdapter(
-    private val callback: (position: Int) -> Unit,
+    private val callback: () -> Unit,
     private val textCallBack: (smp: SimpleRepositoryInfo) -> Unit
 ) : RecyclerView.Adapter<InfoRecyclerViewAdapter.InfoListHolder>() {
 
@@ -32,11 +32,10 @@ class InfoRecyclerViewAdapter(
     override fun getItemCount(): Int = info.size
 
     override fun onBindViewHolder(holder: InfoListHolder, position: Int) {
-        if(ifPagined(position)) {
+        if(isPaginate(position)) {
             isLoading = true
-            callback.invoke(info.size)
+            callback.invoke()
         }
-
         holder.bind(info[position])
     }
 
@@ -44,7 +43,7 @@ class InfoRecyclerViewAdapter(
         info.clear()
     }
 
-    private fun ifPagined(position: Int) = position != 0 && position == info.lastIndex && !isLoading && !isAllContentLoad
+    private fun isPaginate(position: Int) = position != 0 && position == info.lastIndex && !isLoading && !isAllContentLoad
 
     fun updateInfo(updatedInfo: List<SimpleRepositoryInfo>) {
         isAllContentLoad = DEFAULT_PAGE_SIZE > updatedInfo.size

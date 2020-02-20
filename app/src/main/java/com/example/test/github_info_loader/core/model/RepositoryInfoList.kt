@@ -6,6 +6,6 @@ data class RepositoryInfoList(
     @SerializedName("total_count")
     var totalCount: Int,
     @SerializedName("items")
-    var list: List<SimpleRepositoryInfo>
+    var list: List<SimpleRepositoryInfo> = listOf()
 ) {
 }

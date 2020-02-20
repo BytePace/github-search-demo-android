@@ -6,8 +6,8 @@ import moxy.viewstate.strategy.alias.AddToEnd
 
 interface ListInfoView : MvpView {
     @AddToEnd
-    open fun drawInfo(toDraw: List<SimpleRepositoryInfo>)
+    fun drawInfo(toDraw: List<SimpleRepositoryInfo>)
 
     @AddToEnd
-    open fun clearInfo()
+    fun clearInfo()
 }
